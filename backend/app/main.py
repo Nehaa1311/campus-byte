@@ -1,11 +1,13 @@
 from fastapi import FastAPI
 from . import models
 from .database import engine
+from .routers import auth
 
-# Create all tables if they don't exist yet
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Campus Byte")
+
+app.include_router(auth.router)
 
 
 @app.get("/")
